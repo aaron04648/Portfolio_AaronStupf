@@ -1,0 +1,49 @@
+@use "../../app/components/buttons";
+
+.hero {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  min-height: 60vh;
+
+  .badge {
+    padding: 4px 12px;
+    margin-bottom: var(--spacing-sm);
+    border-radius: 20px;
+    color: var(--primary-color);
+    font-size: var(--font-xs);
+    font-weight: 600;
+    background: #dbeafe;
+  }
+
+  h1 {
+    margin: 0 0 var(--spacing-md) 0;
+    color: var(--text-main);
+    font-size: 3.5rem;
+    line-height: 1.1;
+
+    .highlight {
+      color: var(--primary-color);
+    }
+  }
+
+  .subtitle {
+    max-width: 600px;
+    margin: 0 0 var(--spacing-xl) 0;
+    color: var(--text-muted);
+    font-size: var(--font-lg);
+    line-height: 1.6;
+  }
+
+  .actions {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-md);
+  }
+
+  .socials {
+    display: flex;
+    gap: var(--spacing-xs);
+  }
+}
