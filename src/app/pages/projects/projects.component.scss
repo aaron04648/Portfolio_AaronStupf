@@ -1,0 +1,56 @@
+@use "../../app/components/buttons";
+
+.page-header {
+  margin-bottom: var(--spacing-xl);
+  h2 {
+    font-size: var(--font-xl);
+    margin-bottom: var(--spacing-xs);
+  }
+  p {
+    color: var(--text-muted);
+  }
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: var(--spacing-lg);
+}
+
+.card {
+  background: var(--bg-surface);
+  padding: var(--spacing-lg);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-card);
+  border: 1px solid var(--border-color);
+  display: flex;
+  flex-direction: column;
+
+  h3 {
+    margin-top: 0;
+    color: var(--text-main);
+  }
+
+  p {
+    color: var(--text-muted);
+    flex-grow: 1;
+    line-height: 1.5;
+  }
+
+  .tags {
+    display: flex;
+    gap: var(--spacing-xs);
+    margin: var(--spacing-md) 0;
+
+    .tag {
+      background: var(--bg-app);
+      color: var(--secondary-color);
+      padding: 4px 8px;
+      border-radius: 4px;
+      font-size: var(--font-xs);
+      font-weight: 600;
+    }
+  }
+
+  // Da wir @use buttons nutzen, können wir die Klasse direkt im HTML verwenden
+}

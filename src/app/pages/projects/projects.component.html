@@ -1,0 +1,19 @@
+<header class="page-header">
+  <h2>Ausgewählte Projekte</h2>
+  <p>Hier ist eine Auswahl meiner letzten Arbeiten.</p>
+</header>
+
+<div class="grid">
+  @for (project of projects; track project.title) {
+  <article class="card">
+    <h3>{{ project.title }}</h3>
+    <p>{{ project.desc }}</p>
+    <div class="tags">
+      @for (tech of project.tech; track tech) {
+      <span class="tag">{{ tech }}</span>
+      }
+    </div>
+    <button class="btn-secondary">Details ansehen</button>
+  </article>
+  }
+</div>
