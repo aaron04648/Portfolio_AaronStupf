@@ -1,0 +1,40 @@
+<div class="resume-container">
+  <header class="resume-header">
+    <h2>Mein Werdegang</h2>
+    <p>Eine Übersicht meiner schulischen und beruflichen Laufbahn.</p>
+  </header>
+
+  <div class="split-layout">
+    <section class="timeline-column">
+      <h3 class="column-title">Ausbildung</h3>
+      <div class="timeline">
+        @for (edu of education; track edu.title) {
+        <div class="timeline-item">
+          <div class="period">{{ edu.period }}</div>
+          <div class="content">
+            <h4>{{ edu.title }}</h4>
+            <span class="institution">{{ edu.institution }}</span>
+            <p>{{ edu.desc }}</p>
+          </div>
+        </div>
+        }
+      </div>
+    </section>
+
+    <section class="timeline-column">
+      <h3 class="column-title">Berufserfahrung</h3>
+      <div class="timeline">
+        @for (job of experience; track job.title) {
+        <div class="timeline-item">
+          <div class="period">{{ job.period }}</div>
+          <div class="content">
+            <h4>{{ job.title }}</h4>
+            <span class="institution">{{ job.institution }}</span>
+            <p>{{ job.desc }}</p>
+          </div>
+        </div>
+        }
+      </div>
+    </section>
+  </div>
+</div>

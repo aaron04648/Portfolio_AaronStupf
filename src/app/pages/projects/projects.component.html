@@ -6,14 +6,22 @@
 <div class="grid">
   @for (project of projects; track project.title) {
   <article class="card">
+    <div class="image-container">
+      <img [src]="project.img_path" alt="Leider kein Bild vorhanden" />
+    </div>
+
     <h3>{{ project.title }}</h3>
     <p>{{ project.desc }}</p>
+
     <div class="tags">
       @for (tech of project.tech; track tech) {
       <span class="tag">{{ tech }}</span>
       }
     </div>
-    <button class="btn-secondary">Details ansehen</button>
+
+    @if (project.link) {
+    <a [href]="project.link" target="_blank" class="btn-primary"> Website besuchen </a>
+    }
   </article>
   }
 </div>
