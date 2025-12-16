@@ -59,8 +59,15 @@ export class ProjectsComponent {
       link: 'https://github.com/aaron04648/Amazon-Product-Reviewer',
     },
     {
+      title: 'Hackaton Projekt Lucerne Geo',
+      desc: 'Ein Projekt, welches ich an einer Hackaton in Luzern gemacht habe. Es soll die Geodaten von Luzern visualisieren und analysieren mithilfe GPT-Modelle und Vektordatenbanken.',
+      img_path: 'hackstair25.png',
+      tech: ['Python', 'Uvicorn', 'Pandas', 'Matplotlib', 'AWS'],
+      link: 'https://github.com/aaron04648/Hackstair25',
+    },
+    {
       title: 'SmartDoc',
-      desc: 'Ein Projekt wo ich mit Tensorflow ein eigenes Modell trainieren will. Es soll erkennen, welche Art von Dokument sind in einem .zip Datei und sortiert sie',
+      desc: 'Ein Projekt, wo ich mit Tensorflow ein eigenes Modell trainieren will. Es soll erkennen, welche Art von Dokument sind in einem .zip Datei und sortiert sie',
       img_path: '',
       tech: ['Python', 'Uvicorn', 'Pandas', 'Matplotlib', 'Kaggle', 'Huggingface', 'Tensorflow'],
       link: 'https://github.com/aaron04648/SmartDoc_Sorter',
