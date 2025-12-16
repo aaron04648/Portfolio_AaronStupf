@@ -1,0 +1,77 @@
+<div class="about-container">
+  <section class="intro-section">
+    <div class="image-wrapper">
+      <img src="aaronstupf.PNG" alt="Aaron Stupf" />
+    </div>
+
+    <div class="text-content">
+      <span class="greeting">Hallo, ich bin Aaron (21)</span>
+      <h2>Entwickler & AI Enthusiast</h2>
+      <p>
+        Ich studiere aktuell <strong>Artificial Intelligence & Machine Learning</strong> an der HSLU
+        in Rotkreuz.
+      </p>
+      <p>
+        Mit einem Hintergrund als Informatiker EFZ habe ich gelernt, wie wichtig solide
+        Software-Architektur ist. Jetzt verbinde ich dieses Wissen mit neuen Ansätzen aus dem Data
+        Science Bereich.
+      </p>
+    </div>
+  </section>
+
+  <section class="details-section">
+    <h3>Sprachen</h3>
+    <div class="language-grid">
+      @for (lang of languages; track lang.name) {
+      <div class="lang-item">
+        <div class="lang-header">
+          <span class="name">{{ lang.name }}</span>
+          <span class="level">{{ lang.level }}</span>
+        </div>
+        <div class="progress-bar">
+          <div class="progress" [style.width]="lang.percent"></div>
+        </div>
+      </div>
+      }
+    </div>
+  </section>
+
+  <section class="details-section">
+    <h3>Persönliches</h3>
+    <div class="cards-grid"></div>
+  </section>
+  <section class="details-section">
+    <div class="split-content">
+      <div class="content-wrapper">
+        <div class="language-grid">
+          @for (item of interests; track item.title) {
+          <div class="info-card">
+            <h4>{{ item.title }}</h4>
+            <p>{{ item.desc }}</p>
+          </div>
+          }
+        </div>
+      </div>
+
+      <div class="section-img slider-container">
+        <img [src]="Images[currentIndex]" alt="Hobby Bild" class="slide-img" />
+
+        <div class="slider-controls">
+          <button class="slider-btn prev" (click)="prevSlide()">
+            <svg viewBox="0 0 24 24">
+              <path d="M15.41 7.41L14 6l-6 6 6 6 1.41-1.41L10.83 12z" />
+            </svg>
+          </button>
+
+          <span class="indicator">{{ currentIndex + 1 }} / {{ Images.length }}</span>
+
+          <button class="slider-btn next" (click)="nextSlide()">
+            <svg viewBox="0 0 24 24">
+              <path d="M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z" />
+            </svg>
+          </button>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>

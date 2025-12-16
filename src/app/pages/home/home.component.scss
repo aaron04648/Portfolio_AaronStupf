@@ -1,15 +1,20 @@
-@use '../../components/buttons';
-
-.hero {
+.hero-wrapper {
   display: flex;
   flex-direction: column;
   justify-content: center;
-  align-items: flex-start;
-  min-height: 60vh;
+  min-height: 80vh;
+  padding: var(--spacing-lg) 0;
+  gap: var(--spacing-xl);
+}
+
+// Oberer Bereich
+.hero-header {
+  max-width: 800px;
 
   .badge {
-    padding: 4px 12px;
-    margin-bottom: var(--spacing-sm);
+    display: inline-block;
+    padding: 6px 14px;
+    margin-bottom: var(--spacing-md);
     border-radius: 20px;
     color: var(--primary-color);
     font-size: var(--font-xs);
@@ -20,30 +25,76 @@
   h1 {
     margin: 0 0 var(--spacing-md) 0;
     color: var(--text-main);
-    font-size: 3.5rem;
+    font-size: 3.5rem; // Groß und fett
     line-height: 1.1;
 
     .highlight {
+      position: relative;
       color: var(--primary-color);
+
+      // Optional: Unterstreichung
+      &::after {
+        position: absolute;
+        bottom: 5px;
+        left: 0;
+        width: 100%;
+        height: 12px;
+        z-index: -1;
+        content: '';
+        background: rgba(59, 130, 246, 0.1);
+      }
     }
   }
 
-  .subtitle {
-    max-width: 600px;
-    margin: 0 0 var(--spacing-xl) 0;
-    color: var(--text-muted);
-    font-size: var(--font-lg);
-    line-height: 1.6;
+  .social-actions {
+    display: flex;
+    margin-top: var(--spacing-md);
+    gap: var(--spacing-sm);
+  }
+}
+
+// Unterer Bereich (Grid)
+.hero-cards {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--spacing-lg);
+
+  @media (min-width: 768px) {
+    grid-template-columns: 1fr 1fr; // Nebeneinander auf Desktop
   }
 
-  .actions {
+  .card {
     display: flex;
-    align-items: center;
-    gap: var(--spacing-md);
-  }
+    flex-direction: column;
+    padding: var(--spacing-lg);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-md);
+    box-shadow: var(--shadow-card);
+    transition: transform 0.2s, box-shadow 0.2s;
+    background: var(--bg-surface);
 
-  .socials {
-    display: flex;
-    gap: var(--spacing-xs);
+    &:hover {
+      box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1);
+      transform: translateY(-4px);
+      border-color: var(--primary-color);
+    }
+
+    h3 {
+      margin: 0 0 var(--spacing-sm) 0;
+      color: var(--text-main);
+      font-size: var(--font-lg);
+    }
+
+    p {
+      margin: 0 0 var(--spacing-lg) 0;
+      color: var(--text-muted);
+      line-height: 1.6;
+      flex-grow: 1; // Drückt den Button nach unten
+    }
+
+    .card-footer {
+      display: flex;
+      justify-content: flex-start;
+    }
   }
 }

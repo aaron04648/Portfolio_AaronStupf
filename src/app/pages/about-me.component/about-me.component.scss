@@ -1,0 +1,213 @@
+.about-container {
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+.intro-section {
+  display: grid;
+  align-items: center;
+  margin-bottom: var(--spacing-xl);
+  grid-template-columns: 1fr;
+  gap: var(--spacing-xl);
+
+  @media (min-width: 768px) {
+    grid-template-columns: 300px 1fr;
+  }
+
+  .image-wrapper {
+    width: 100%;
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-md);
+    box-shadow: var(--shadow-card);
+    aspect-ratio: 1/1;
+    overflow: hidden;
+
+    img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+  }
+
+  .text-content {
+    .greeting {
+      display: block;
+      margin-bottom: var(--spacing-xs);
+      color: var(--primary-color);
+      font-size: var(--font-md);
+      font-weight: 600;
+    }
+
+    h2 {
+      margin: 0 0 var(--spacing-md) 0;
+      color: var(--text-main);
+      font-size: 2.5rem;
+      line-height: 1.2;
+    }
+
+    p {
+      margin-bottom: var(--spacing-sm);
+      color: var(--text-muted);
+      font-size: var(--font-md);
+      line-height: 1.6;
+    }
+  }
+}
+
+.details-section {
+  margin-bottom: var(--spacing-xl);
+
+  h3 {
+    padding-bottom: var(--spacing-xs);
+    margin-bottom: var(--spacing-lg);
+    font-size: var(--font-xl);
+    border-bottom: 1px solid var(--border-color);
+  }
+
+  .split-content {
+    display: grid;
+    gap: var(--spacing-lg);
+    grid-template-columns: 1fr;
+
+    @media (min-width: 768px) {
+      align-items: start;
+      grid-template-columns: 1fr 300px;
+    }
+
+    // Slider Styling
+    .slider-container {
+      position: relative;
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-md);
+      box-shadow: var(--shadow-card);
+      overflow: hidden;
+      aspect-ratio: 3/4;
+      background: var(--bg-surface);
+
+      .slide-img {
+        display: block;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+      }
+
+      .slider-controls {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        position: absolute;
+        right: 0;
+        bottom: 0;
+        left: 0;
+        padding: var(--spacing-xs);
+        background: rgba(0, 0, 0, 0.6); // Dunkler Hintergrund für Lesbarkeit
+        backdrop-filter: blur(4px);
+
+        .indicator {
+          color: white;
+          font-size: var(--font-xs);
+          font-weight: 600;
+        }
+
+        .slider-btn {
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          width: 32px;
+          height: 32px;
+          border: none;
+          border-radius: 50%;
+          color: white;
+          transition: background 0.2s;
+          background: rgba(255, 255, 255, 0.2);
+          cursor: pointer;
+
+          &:hover {
+            background: var(--primary-color);
+          }
+
+          svg {
+            width: 24px;
+            height: 24px;
+            fill: currentColor;
+          }
+        }
+      }
+    }
+  }
+}
+
+.language-grid {
+  display: flex;
+  flex-direction: column;
+  padding: var(--spacing-lg);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-card);
+  gap: var(--spacing-md);
+  background: var(--bg-surface);
+
+  .lang-item {
+    .lang-header {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 8px;
+      font-weight: 500;
+
+      .level {
+        color: var(--text-muted);
+        font-size: var(--font-sm);
+      }
+    }
+
+    .progress-bar {
+      height: 8px;
+      border-radius: 4px;
+      background: var(--bg-app);
+      overflow: hidden;
+
+      .progress {
+        height: 100%;
+        border-radius: 4px;
+        background: var(--primary-color);
+      }
+    }
+  }
+}
+
+.cards-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: var(--spacing-md);
+}
+
+.info-card {
+  padding: var(--spacing-lg);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-card);
+  transition: transform 0.2s;
+  background: var(--bg-surface);
+  text-align: center;
+
+  &:hover {
+    transform: translateY(-4px);
+  }
+
+  .icon {
+    margin-bottom: var(--spacing-sm);
+    font-size: 2.5rem;
+  }
+
+  h4 {
+    margin: 0 0 var(--spacing-xs) 0;
+    color: var(--text-main);
+  }
+
+  p {
+    margin: 0;
+    color: var(--text-muted);
+    font-size: var(--font-sm);
+    line-height: 1.5;
+  }
+}
