@@ -62,7 +62,7 @@ export class ProjectsComponent {
       title: 'Hackaton Projekt Lucerne Geo',
       desc: 'Ein Projekt, welches ich an einer Hackaton in Luzern gemacht habe. Es soll die Geodaten von Luzern visualisieren und analysieren mithilfe GPT-Modelle und Vektordatenbanken.',
       img_path: 'hackstair25.png',
-      tech: ['Python', 'Uvicorn', 'Pandas', 'Matplotlib', 'AWS'],
+      tech: ['Python', 'Uvicorn', 'Pandas', 'Matplotlib', 'Azure Cloud'],
       link: 'https://github.com/aaron04648/Hackstair25',
     },
     {

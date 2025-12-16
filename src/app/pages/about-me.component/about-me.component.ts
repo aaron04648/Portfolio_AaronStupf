@@ -12,7 +12,6 @@ export class AboutMeComponent {
     'aaron_fussball3.jpg',
     'aaron_fussball3.JPEG',
     'aaron.jpg',
-    'aaron_gym.jpg',
   ];
   interests = [
     {
