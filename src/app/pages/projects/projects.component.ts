@@ -39,7 +39,7 @@ export class ProjectsComponent {
     },
     {
       title: 'IMDB Dupe',
-      desc: 'Meine IDPA-Arbeit sollte eine Datenbank darstellen, die die Usecase wie IMDB hat',
+      desc: 'Meine IDPA-Arbeit sollte eine Datenbank darstellen, die den Usecase wie IMDB hat',
       img_path: '',
       tech: ['Angular', 'SCSS', 'Firebase'],
       link: undefined,
