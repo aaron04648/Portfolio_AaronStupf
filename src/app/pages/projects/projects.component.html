@@ -1,27 +1,127 @@
-<header class="page-header">
-  <h2>Ausgewählte Projekte</h2>
-  <p>Hier ist eine Auswahl meiner letzten Arbeiten.</p>
-</header>
+<section class="page-hero" aria-labelledby="projects-title">
+  <div class="container">
+    <span class="eyebrow" appReveal="fade">Projekte</span>
+    <h1 id="projects-title" class="display" appReveal [revealDelay]="100">
+      Was ich<br /><span class="gradient-text">gebaut habe.</span>
+    </h1>
+    <p class="lead" appReveal [revealDelay]="220">
+      Von Kundenprojekten in Praktikum und Beruf über Studienarbeiten bis zu privaten
+      Experimenten mit Machine Learning. Tippe auf ein Projekt für die ganze Geschichte.
+    </p>
+  </div>
+</section>
 
-<div class="grid">
-  @for (project of projects; track project.title) {
-  <article class="card">
-    <div class="image-container">
-      <img [src]="project.img_path" alt="Leider kein Bild vorhanden" />
-    </div>
-
-    <h3>{{ project.title }}</h3>
-    <p>{{ project.desc }}</p>
-
-    <div class="tags">
-      @for (tech of project.tech; track tech) {
-      <span class="tag">{{ tech }}</span>
+<section class="projects" aria-label="Projektliste">
+  <div class="container">
+    <div class="filters" role="group" aria-label="Projekte filtern" appReveal="fade" [revealDelay]="300">
+      @for (cat of categories; track cat.id) {
+        <button
+          type="button"
+          class="filters__chip"
+          [class.is-active]="filter() === cat.id"
+          [attr.aria-pressed]="filter() === cat.id"
+          (click)="filter.set(cat.id)"
+        >
+          {{ cat.label }} <span>{{ countFor(cat.id) }}</span>
+        </button>
       }
     </div>
 
-    @if (project.link) {
-    <a [href]="project.link" target="_blank" class="btn-primary"> Website besuchen </a>
-    }
-  </article>
+    <ul class="grid">
+      @for (project of projects(); track project.id) {
+        <li [id]="project.id">
+          <button type="button" class="project" (click)="open(project)">
+            <app-project-cover [tone]="project.tone" [icon]="project.icon" />
+            <div class="project__body">
+              <span class="project__meta">
+                {{ project.context }}@if (project.period) { · {{ project.period }} }
+              </span>
+              <h2>{{ project.title }}</h2>
+              <p>{{ project.summary }}</p>
+              <ul class="tag-list">
+                @for (tech of project.tech; track tech) {
+                  <li class="tag">{{ tech }}</li>
+                }
+              </ul>
+            </div>
+            <span class="project__plus" aria-hidden="true"><app-icon name="plus" [stroke]="2" /></span>
+            <span class="visually-hidden">Details zu {{ project.title }} öffnen</span>
+          </button>
+        </li>
+      }
+    </ul>
+  </div>
+</section>
+
+<dialog
+  #dialog
+  class="detail"
+  aria-labelledby="detail-title"
+  (click)="onDialogClick($event)"
+  (close)="selected.set(null)"
+>
+  @if (selected(); as project) {
+    <article class="detail__panel">
+      <button type="button" class="detail__close" (click)="close()" aria-label="Schliessen">
+        <app-icon name="close" [stroke]="2" />
+      </button>
+
+      <app-project-cover
+        class="detail__cover"
+        [tone]="project.tone"
+        [icon]="project.icon"
+        [label]="project.context"
+      />
+
+      <div class="detail__content">
+        <span class="eyebrow">{{ project.role }}</span>
+        <h2 id="detail-title" class="subheadline">{{ project.title }}</h2>
+        <p class="lead">{{ project.summary }}</p>
+
+        <dl class="detail__facts">
+          <div>
+            <dt>Rahmen</dt>
+            <dd>{{ project.context }}</dd>
+          </div>
+          @if (project.period) {
+            <div>
+              <dt>Zeitraum</dt>
+              <dd>{{ project.period }}</dd>
+            </div>
+          }
+          <div>
+            <dt>Rolle</dt>
+            <dd>{{ project.role }}</dd>
+          </div>
+        </dl>
+
+        <h3>Highlights</h3>
+        <ul class="detail__highlights">
+          @for (point of project.highlights; track point) {
+            <li>{{ point }}</li>
+          }
+        </ul>
+
+        <h3>Technologien &amp; Themen</h3>
+        <ul class="tag-list">
+          @for (tech of project.tech; track tech) {
+            <li class="tag">{{ tech }}</li>
+          }
+        </ul>
+
+        <div class="detail__footer">
+          @if (project.link) {
+            <a [href]="project.link.url" target="_blank" rel="noopener noreferrer" class="btn btn--primary">
+              {{ project.link.label }} <app-icon name="arrowUpRight" [stroke]="2" />
+            </a>
+          } @else {
+            <p class="detail__private">
+              Code und Oberfläche sind nicht öffentlich. Im Gespräch zeige und erkläre ich gerne
+              mehr.
+            </p>
+          }
+        </div>
+      </div>
+    </article>
   }
-</div>
+</dialog>

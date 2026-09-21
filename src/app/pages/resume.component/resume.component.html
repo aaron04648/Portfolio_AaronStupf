@@ -1,40 +1,172 @@
-<div class="resume-container">
-  <header class="resume-header">
-    <h2>Mein Werdegang</h2>
-    <p>Eine Übersicht meiner schulischen und beruflichen Laufbahn.</p>
-  </header>
-
-  <div class="split-layout">
-    <section class="timeline-column">
-      <h3 class="column-title">Ausbildung</h3>
-      <div class="timeline">
-        @for (edu of education; track edu.title) {
-        <div class="timeline-item">
-          <div class="period">{{ edu.period }}</div>
-          <div class="content">
-            <h4>{{ edu.title }}</h4>
-            <span class="institution">{{ edu.institution }}</span>
-            <p>{{ edu.desc }}</p>
-          </div>
-        </div>
-        }
-      </div>
-    </section>
-
-    <section class="timeline-column">
-      <h3 class="column-title">Berufserfahrung</h3>
-      <div class="timeline">
-        @for (job of experience; track job.title) {
-        <div class="timeline-item">
-          <div class="period">{{ job.period }}</div>
-          <div class="content">
-            <h4>{{ job.title }}</h4>
-            <span class="institution">{{ job.institution }}</span>
-            <p>{{ job.desc }}</p>
-          </div>
-        </div>
-        }
-      </div>
-    </section>
+<section class="page-hero" aria-labelledby="resume-title">
+  <div class="container">
+    <span class="eyebrow" appReveal="fade">Lebenslauf</span>
+    <h1 id="resume-title" class="display" appReveal [revealDelay]="100">Mein Werdegang.</h1>
+    <p class="lead" appReveal [revealDelay]="220">
+      Vier Jahre Lehre, drei Praktika, ein Jahr Industrie und ein Studium in KI – hier ist der
+      Überblick.
+    </p>
   </div>
-</div>
+</section>
+
+<!-- ================= KURZPROFIL ================= -->
+<section class="facts" aria-label="Kurzprofil">
+  <div class="container">
+    <dl class="facts__list">
+      @for (fact of facts; track fact.label; let i = $index) {
+        <div appReveal [revealDelay]="i * 80">
+          <dt>{{ fact.label }}</dt>
+          <dd>{{ fact.value }}</dd>
+        </div>
+      }
+    </dl>
+  </div>
+</section>
+
+<!-- ================= BERUFSERFAHRUNG ================= -->
+<section class="section" aria-labelledby="experience-title">
+  <div class="container">
+    <header class="section-header" appReveal>
+      <span class="eyebrow">Berufserfahrung</span>
+      <h2 id="experience-title" class="headline">Wo ich gearbeitet habe.</h2>
+    </header>
+
+    <ol class="timeline">
+      @for (entry of experience; track entry.institution + entry.period) {
+        <li class="timeline__item" appReveal>
+          <div class="timeline__period">{{ entry.period }}</div>
+          <div class="timeline__content">
+            <h3>{{ entry.institution }}</h3>
+            <p class="timeline__role">{{ entry.title }} · {{ entry.place }}</p>
+            <ul>
+              @for (point of entry.points; track point) {
+                <li>{{ point }}</li>
+              }
+            </ul>
+          </div>
+        </li>
+      }
+    </ol>
+  </div>
+</section>
+
+<!-- ================= AUSBILDUNG ================= -->
+<section class="section section--gray" aria-labelledby="education-title">
+  <div class="container">
+    <header class="section-header" appReveal>
+      <span class="eyebrow">Ausbildung</span>
+      <h2 id="education-title" class="headline">Was ich gelernt habe.</h2>
+    </header>
+
+    <div class="education">
+      @for (entry of education; track entry.institution; let i = $index) {
+        <article class="card education__card" appReveal [revealDelay]="i * 100">
+          <span class="education__icon">
+            <app-icon [name]="educationIcons[i]" />
+          </span>
+          <span class="education__period">{{ entry.period }}</span>
+          <h3>{{ entry.title }}</h3>
+          <p class="education__school">{{ entry.institution }} · {{ entry.place }}</p>
+          <ul>
+            @for (point of entry.points; track point) {
+              <li>{{ point }}</li>
+            }
+          </ul>
+        </article>
+      }
+    </div>
+  </div>
+</section>
+
+<!-- ================= KOMPETENZEN ================= -->
+<section class="section section--dark" aria-labelledby="skills-title">
+  <div class="container">
+    <header class="section-header section-header--center" appReveal>
+      <span class="eyebrow">Technische Kompetenzen</span>
+      <h2 id="skills-title" class="headline">Mein Werkzeugkasten.</h2>
+    </header>
+
+    <div class="skills">
+      @for (group of skillGroups; track group.title; let i = $index) {
+        <article class="skills__group" appReveal [revealDelay]="i * 100">
+          <header>
+            <app-icon [name]="group.icon" />
+            <h3>{{ group.title }}</h3>
+          </header>
+          <ul>
+            @for (skill of group.skills; track skill.name) {
+              <li>
+                <span>{{ skill.name }}</span>
+                <span class="meter" [attr.aria-label]="levelLabel[skill.level]" role="img">
+                  @for (step of levels; track step) {
+                    <span class="meter__bar" [class.is-on]="step <= skill.level"></span>
+                  }
+                </span>
+              </li>
+            }
+          </ul>
+        </article>
+      }
+    </div>
+
+    <p class="skills__legend">
+      <span><span class="meter__bar is-on"></span><span class="meter__bar is-on"></span><span class="meter__bar is-on"></span> Sehr gut</span>
+      <span><span class="meter__bar is-on"></span><span class="meter__bar is-on"></span><span class="meter__bar"></span> Gut</span>
+      <span><span class="meter__bar is-on"></span><span class="meter__bar"></span><span class="meter__bar"></span> Mittel</span>
+    </p>
+  </div>
+</section>
+
+<!-- ================= ÜBERFACHLICH ================= -->
+<section class="section" aria-labelledby="more-title">
+  <div class="container">
+    <header class="section-header" appReveal>
+      <span class="eyebrow">Mehr als Code</span>
+      <h2 id="more-title" class="headline">Was mich ausmacht.</h2>
+    </header>
+
+    <div class="bento">
+      <article class="card bento__award" appReveal>
+        <app-icon name="trophy" [stroke]="1.3" />
+        <span class="eyebrow">Preise &amp; Auszeichnungen</span>
+        <h3>HackStair Sieger 2025</h3>
+        <p>HSLU · Rotkreuz, Zug · November 2025</p>
+      </article>
+
+      <article class="card" appReveal [revealDelay]="100">
+        <h3>Soziale Fähigkeiten</h3>
+        <ul class="tag-list">
+          @for (skill of softSkills.social; track skill) {
+            <li class="tag">{{ skill }}</li>
+          }
+        </ul>
+        <h3>Persönliche Fähigkeiten</h3>
+        <ul class="tag-list">
+          @for (skill of softSkills.personal; track skill) {
+            <li class="tag">{{ skill }}</li>
+          }
+        </ul>
+      </article>
+
+      <article class="card bento__languages" appReveal [revealDelay]="200">
+        <h3>Sprachen</h3>
+        <ul>
+          @for (lang of languages; track lang.name) {
+            <li>
+              <div class="lang__head">
+                <strong>{{ lang.name }}</strong>
+                <span>{{ lang.level }}</span>
+              </div>
+              <div class="lang__bar"><span [style.width.%]="lang.value"></span></div>
+            </li>
+          }
+        </ul>
+      </article>
+
+      <article class="card bento__reference" appReveal [revealDelay]="300">
+        <h3>Referenzen</h3>
+        <p>Referenzen aus meiner Zeit bei der Lonza AG gebe ich gerne auf Anfrage weiter.</p>
+      </article>
+    </div>
+  </div>
+</section>

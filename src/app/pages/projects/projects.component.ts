@@ -1,76 +1,69 @@
-import { Component } from '@angular/core';
-
-interface Project {
-  title: string;
-  desc: string;
-  img_path: string | undefined;
-  tech: string[];
-  link: string | undefined;
-}
+import {
+  Component,
+  ElementRef,
+  afterNextRender,
+  computed,
+  inject,
+  signal,
+  viewChild,
+} from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
+import {
+  PROJECT_CATEGORIES,
+  PROJECTS,
+  Project,
+  ProjectCategory,
+} from '../../core/portfolio.data';
+import { Icon } from '../../shared/icon/icon';
+import { ProjectCover } from '../../shared/project-cover/project-cover';
+import { RevealDirective } from '../../shared/reveal.directive';
 
 @Component({
   selector: 'app-projects',
-  standalone: true,
+  imports: [Icon, ProjectCover, RevealDirective],
   templateUrl: './projects.component.html',
   styleUrl: './projects.component.scss',
 })
 export class ProjectsComponent {
-  projects: Project[] = [
-    {
-      title: 'Walliser Wörter',
-      desc: 'Ein Auftrag an meinem Praktikum in der Pomona Media.',
-      img_path: 'walliserworter.PNG',
-      tech: ['Vue', 'FileMaker'],
-      link: undefined,
-    },
-    {
-      title: 'OHOOO Workspace Mananger',
-      desc: 'Produkt der Lehrlingswerkstatt OHOOO. Es ist ein Tool um Plätze des eigenen Workspace oder Restaurants zu managen.',
-      img_path: 'space_ohooo.PNG',
-      tech: ['Angular', 'SCSS', 'Firebase'],
-      link: undefined,
-    },
-    {
-      title: 'Portfolio Template',
-      desc: 'Ein Portfolio Template, welches man sich auf meinem Github runterladen kann',
-      img_path: 'portfolioTemp.PNG',
-      tech: ['Angular', 'SCSS', 'Firebase'],
-      link: 'https://nikeroten.ch',
-    },
-    {
-      title: 'IMDB Dupe',
-      desc: 'Meine IDPA-Arbeit sollte eine Datenbank darstellen, die den Usecase wie IMDB hat',
-      img_path: '',
-      tech: ['Angular', 'SCSS', 'Firebase'],
-      link: undefined,
-    },
-    {
-      title: 'Maturaball',
-      desc: 'Webseite für den Maturaball 2024 Brig',
-      img_path: '',
-      tech: ['Angular', 'SCSS', 'Firebase'],
-      link: 'https://github.com/aaron04648/Rana-Maturaball',
-    },
-    {
-      title: 'Amazon Product Reviewer',
-      desc: 'Mein ersten Python Projekt mit einem Sentence Transformer Modell, welches ein kleinen Datensatz von Kaggle verwendet. ',
-      img_path: '',
-      tech: ['Python', 'Uvicorn', 'Pandas', 'Matplotlib', 'Kaggle', 'Huggingface'],
-      link: 'https://github.com/aaron04648/Amazon-Product-Reviewer',
-    },
-    {
-      title: 'Hackaton Projekt Lucerne Geo',
-      desc: 'Ein Projekt, welches ich an einer Hackaton in Luzern gemacht habe. Es soll die Geodaten von Luzern visualisieren und analysieren mithilfe GPT-Modelle und Vektordatenbanken.',
-      img_path: 'hackstair25.png',
-      tech: ['Python', 'Uvicorn', 'Pandas', 'Matplotlib', 'Azure Cloud'],
-      link: 'https://github.com/aaron04648/Hackstair25',
-    },
-    {
-      title: 'SmartDoc',
-      desc: 'Ein Projekt, wo ich mit Tensorflow ein eigenes Modell trainieren will. Es soll erkennen, welche Art von Dokument sind in einem .zip Datei und sortiert sie',
-      img_path: '',
-      tech: ['Python', 'Uvicorn', 'Pandas', 'Matplotlib', 'Kaggle', 'Huggingface', 'Tensorflow'],
-      link: 'https://github.com/aaron04648/SmartDoc_Sorter',
-    },
-  ];
+  private readonly route = inject(ActivatedRoute);
+  private readonly dialog = viewChild.required<ElementRef<HTMLDialogElement>>('dialog');
+
+  protected readonly categories = PROJECT_CATEGORIES;
+  protected readonly filter = signal<ProjectCategory | 'alle'>('alle');
+  protected readonly selected = signal<Project | null>(null);
+
+  protected readonly projects = computed(() => {
+    const filter = this.filter();
+    return filter === 'alle' ? PROJECTS : PROJECTS.filter((p) => p.category === filter);
+  });
+
+  protected countFor(id: ProjectCategory | 'alle'): number {
+    return id === 'alle' ? PROJECTS.length : PROJECTS.filter((p) => p.category === id).length;
+  }
+
+  constructor() {
+    // Deep-Link von der Startseite (/projects#pv-rechner) öffnet direkt die Detailansicht.
+    afterNextRender(() => {
+      const project = PROJECTS.find((p) => p.id === this.route.snapshot.fragment);
+      if (project) {
+        this.open(project);
+      }
+    });
+  }
+
+  open(project: Project): void {
+    this.selected.set(project);
+    this.dialog().nativeElement.showModal();
+  }
+
+  close(): void {
+    this.dialog().nativeElement.close();
+  }
+
+  onDialogClick(event: MouseEvent): void {
+    // Klick auf den abgedunkelten Hintergrund schliesst den Dialog.
+    if (event.target === this.dialog().nativeElement) {
+      this.close();
+    }
+  }
 }

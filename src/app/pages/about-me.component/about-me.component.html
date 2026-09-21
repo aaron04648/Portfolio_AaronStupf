@@ -1,77 +1,116 @@
-<div class="about-container">
-  <section class="intro-section">
-    <div class="image-wrapper">
-      <img src="aaronstupf.PNG" alt="Aaron Stupf" />
+<!-- ================= INTRO ================= -->
+<section class="intro" aria-labelledby="about-title">
+  <div class="container intro__grid">
+    <div class="intro__portrait" appReveal="scale">
+      <img [src]="profile.portrait" [alt]="profile.name" width="234" height="234" />
     </div>
-
-    <div class="text-content">
-      <span class="greeting">Hallo, ich bin Aaron (21)</span>
-      <h2>Entwickler & AI Engineer</h2>
-      <p>
-        Ich studiere aktuell <strong>Artificial Intelligence & Machine Learning</strong> an der HSLU
-        in Rotkreuz.
+    <div class="intro__text">
+      <span class="eyebrow" appReveal="fade">Über mich</span>
+      <h1 id="about-title" class="display" appReveal [revealDelay]="100">
+        Hallo, ich bin <span class="gradient-text">Aaron.</span>
+      </h1>
+      <p class="lead" appReveal [revealDelay]="200">
+        Ich studiere Artificial Intelligence &amp; Machine Learning an der HSLU in Rotkreuz und
+        arbeite nebenbei als Full-Stack Developer.
       </p>
-      <p>
-        Mit einem Hintergrund als Informatiker EFZ habe ich gelernt, wie wichtig solide
-        Software-Architektur ist. Jetzt verbinde ich dieses Wissen mit neuen Ansätzen aus dem Data
-        Science Bereich.
+      <p appReveal [revealDelay]="280">
+        Als Informatiker EFZ habe ich gelernt, wie wichtig solide Software-Architektur ist. Jetzt
+        verbinde ich dieses Wissen mit neuen Ansätzen aus Data Science und KI.
       </p>
-    </div>
-  </section>
-
-  <section class="details-section">
-    <h3>Sprachen</h3>
-    <div class="language-grid">
-      @for (lang of languages; track lang.name) {
-      <div class="lang-item">
-        <div class="lang-header">
-          <span class="name">{{ lang.name }}</span>
-          <span class="level">{{ lang.level }}</span>
-        </div>
-        <div class="progress-bar">
-          <div class="progress" [style.width]="lang.percent"></div>
-        </div>
+      <div class="intro__meta" appReveal [revealDelay]="360">
+        <span><app-icon name="pin" /> {{ profile.location }}</span>
+        <app-social-links />
       </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= GESCHICHTE ================= -->
+<section class="section section--gray" aria-labelledby="story-title">
+  <div class="container">
+    <header class="section-header section-header--center" appReveal>
+      <span class="eyebrow">Meine Geschichte</span>
+      <h2 id="story-title" class="headline">Fünf Kapitel.<br />Ein roter Faden.</h2>
+      <p class="lead">
+        Wie aus einem Lernenden in Visp ein AI Engineer in Ausbildung wurde.
+      </p>
+    </header>
+
+    <ol class="story">
+      @for (chapter of story; track chapter.year; let i = $index; let last = $last) {
+        <li class="story__chapter" [class.story__chapter--last]="last">
+          <div class="story__year" appReveal="fade">
+            <span class="story__index">Kapitel {{ i + 1 }}</span>
+            <span class="story__number">{{ chapter.year }}</span>
+          </div>
+          <div class="story__marker" aria-hidden="true"><span></span></div>
+          <article class="story__card" appReveal>
+            <span class="story__place">{{ chapter.place }}</span>
+            <h3>{{ chapter.title }}</h3>
+            <p>{{ chapter.text }}</p>
+            <ul class="tag-list">
+              @for (tag of chapter.tags; track tag) {
+                <li class="tag">{{ tag }}</li>
+              }
+            </ul>
+          </article>
+        </li>
+      }
+    </ol>
+
+    <div class="story__cta" appReveal>
+      <a routerLink="/resume" class="btn btn--primary">Ganzen Lebenslauf ansehen</a>
+      <a routerLink="/projects" class="link-arrow">Zu den Projekten</a>
+    </div>
+  </div>
+</section>
+
+<!-- ================= PERSÖNLICHES ================= -->
+<section class="section" aria-labelledby="personal-title">
+  <div class="container">
+    <header class="section-header section-header--center" appReveal>
+      <span class="eyebrow">Persönliches</span>
+      <h2 id="personal-title" class="headline">Abseits der Tastatur.</h2>
+    </header>
+
+    <div class="interests">
+      @for (item of interests; track item.title; let i = $index) {
+        <article class="card interest" appReveal [revealDelay]="i * 100">
+          <span class="interest__icon"><app-icon [name]="item.icon" /></span>
+          <h3>{{ item.title }}</h3>
+          <p>{{ item.text }}</p>
+        </article>
       }
     </div>
-  </section>
+  </div>
+</section>
 
-  <section class="details-section">
-    <h3>Persönliches</h3>
-    <div class="cards-grid"></div>
-  </section>
-  <section class="details-section">
-    <div class="split-content">
-      <div class="content-wrapper">
-        <div class="language-grid">
-          @for (item of interests; track item.title) {
-          <div class="info-card">
-            <h4>{{ item.title }}</h4>
-            <p>{{ item.desc }}</p>
-          </div>
-          }
-        </div>
-      </div>
+<!-- ================= SPRACHEN ================= -->
+<section class="section section--dark" aria-labelledby="languages-title">
+  <div class="container">
+    <header class="section-header section-header--center" appReveal>
+      <span class="eyebrow">Sprachen</span>
+      <h2 id="languages-title" class="headline">Vier Sprachen.</h2>
+    </header>
 
-      <div class="section-img slider-container">
-        <img [src]="Images[currentIndex]" alt="Hobby Bild" class="slide-img" />
-
-        <div class="slider-controls">
-          <button class="slider-btn prev" (click)="prevSlide()">
-            <svg viewBox="0 0 24 24">
-              <path d="M15.41 7.41L14 6l-6 6 6 6 1.41-1.41L10.83 12z" />
-            </svg>
-          </button>
-
-          <span class="indicator">{{ currentIndex + 1 }} / {{ Images.length }}</span>
-
-          <button class="slider-btn next" (click)="nextSlide()">
-            <svg viewBox="0 0 24 24">
-              <path d="M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z" />
-            </svg>
-          </button>
-        </div>
-      </div>
-    </div>
-  </section>
-</div>
+    <ul class="languages">
+      @for (lang of languages; track lang.name; let i = $index) {
+        <li appReveal [revealDelay]="i * 100">
+          <svg class="ring" viewBox="0 0 120 120" aria-hidden="true">
+            <circle cx="60" cy="60" r="52" class="ring__track" />
+            <circle
+              cx="60"
+              cy="60"
+              r="52"
+              class="ring__value"
+              [attr.stroke-dasharray]="326.7"
+              [attr.stroke-dashoffset]="326.7 * (1 - lang.value / 100)"
+            />
+          </svg>
+          <strong>{{ lang.name }}</strong>
+          <span>{{ lang.level }}</span>
+        </li>
+      }
+    </ul>
+  </div>
+</section>

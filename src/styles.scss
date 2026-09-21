@@ -1,45 +1,353 @@
-@use './app/components/buttons';
-:root {
-  --primary-color: #3b82f6;
-  --primary-hover: #2563eb;
-  --secondary-color: #64748b;
-  --success-color: #10b981;
-  --error-color: #ef4444;
+// =============================================================
+// AARON STUPF – Globale Styles
+// =============================================================
+@use 'tokens' as *;
 
-  --bg-app: #f1f5f9;
-  --bg-surface: #ffffff;
-
-  --text-main: #1e293b;
-  --text-muted: #94a3b8;
-  --border-color: #e2e8f0;
-
-  --font-xs: 0.75rem;
-  --font-sm: 0.875rem;
-  --font-md: 1rem;
-  --font-lg: 1.25rem;
-  --font-xl: 1.5rem;
-  --font-weight-bold: 600;
-
-  --spacing-xs: 0.5rem;
-  --spacing-sm: 1rem;
-  --spacing-md: 1.5rem;
-  --spacing-lg: 2rem;
-  --spacing-xl: 3rem;
-
-  --radius-sm: 0.375rem;
-  --radius-md: 0.75rem;
-  --shadow-card: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+// ---------- Reset ----------
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
 }
 
-/* Global Reset */
-* {
-  box-sizing: border-box;
+html {
+  scroll-padding-top: calc(#{$header-height} + #{$spacing-6});
+  -webkit-text-size-adjust: 100%;
+}
+
+html.is-ready {
+  scroll-behavior: smooth;
 }
 
 body {
-  min-height: 100vh;
-  margin: 0;
-  color: var(--text-main);
-  background-color: var(--bg-app);
-  font-family: 'Inter', sans-serif;
+  font-family: $font-family-base;
+  font-size: $text-base;
+  line-height: $line-height-base;
+  letter-spacing: $letter-spacing-base;
+  color: $color-ink;
+  background: $color-white;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+img,
+svg {
+  display: block;
+  max-width: 100%;
+  height: auto;
+}
+
+a {
+  color: $color-accent;
+  text-decoration: none;
+
+  &:hover {
+    text-decoration: underline;
+  }
+}
+
+button {
+  font-family: inherit;
+}
+
+:focus-visible {
+  outline: 2px solid $color-accent;
+  outline-offset: 3px;
+}
+
+// ---------- Typografie ----------
+h1,
+h2,
+h3,
+h4 {
+  font-weight: $font-weight-semibold;
+  letter-spacing: $letter-spacing-tight;
+  line-height: $line-height-tight;
+  color: inherit;
+  text-wrap: balance;
+}
+
+.display {
+  font-size: $text-6xl;
+  font-weight: $font-weight-bold;
+  letter-spacing: -0.035em;
+}
+
+.headline {
+  font-size: clamp($text-3xl, 4.5vw, $text-5xl);
+  font-weight: $font-weight-bold;
+}
+
+.subheadline {
+  font-size: clamp($text-2xl, 3vw, $text-3xl);
+}
+
+.lead {
+  font-size: clamp($text-lg, 2vw, $text-xl);
+  line-height: $line-height-base;
+  color: $color-gray-500;
+  font-weight: $font-weight-regular;
+  text-wrap: pretty;
+}
+
+.eyebrow {
+  display: block;
+  font-size: $text-sm;
+  font-weight: $font-weight-semibold;
+  text-transform: uppercase;
+  letter-spacing: $letter-spacing-wide;
+  color: $color-accent;
+  margin-bottom: $spacing-4;
+}
+
+.text-secondary {
+  color: $color-gray-500;
+}
+
+.gradient-text {
+  background: linear-gradient(90deg, #0071e3 0%, #7d4cdb 55%, #e8590c 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+// ---------- Layout ----------
+.container {
+  width: 100%;
+  max-width: $container-max;
+  margin-inline: auto;
+  padding-inline: $spacing-4;
+
+  @media (min-width: $bp-sm) {
+    padding-inline: $spacing-5;
+  }
+
+  @media (min-width: $bp-md) {
+    padding-inline: $spacing-6;
+  }
+}
+
+.container--text {
+  max-width: $container-text;
+}
+
+.section {
+  padding-block: $spacing-10;
+
+  @media (min-width: $bp-md) {
+    padding-block: $spacing-12;
+  }
+}
+
+.section--gray {
+  background: $color-offwhite;
+}
+
+.section--dark {
+  background: $color-black;
+  color: $color-white;
+
+  .lead,
+  .text-secondary {
+    color: $color-gray-400;
+  }
+
+  .eyebrow {
+    color: $color-accent-dark;
+  }
+}
+
+.section-header {
+  max-width: $container-text;
+  margin-bottom: $spacing-8;
+
+  @media (min-width: $bp-md) {
+    margin-bottom: $spacing-9;
+  }
+
+  p {
+    margin-top: $spacing-4;
+  }
+}
+
+.section-header--center {
+  margin-inline: auto;
+  text-align: center;
+}
+
+// Seitenkopf der Unterseiten
+.page-hero {
+  padding-block: calc(#{$header-height} + #{$spacing-10}) $spacing-9;
+  text-align: center;
+
+  @media (min-width: $bp-md) {
+    padding-block: calc(#{$header-height} + #{$spacing-12}) $spacing-10;
+  }
+
+  .lead {
+    max-width: 640px;
+    margin: $spacing-5 auto 0;
+  }
+}
+
+// ---------- Buttons (Apple-Pill-Style) ----------
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: $spacing-2;
+  padding: $spacing-3 $spacing-5;
+  border-radius: $radius-full;
+  border: 1px solid transparent;
+  font-family: inherit;
+  font-size: $text-base;
+  font-weight: $font-weight-medium;
+  letter-spacing: $letter-spacing-base;
+  cursor: pointer;
+  transition: background-color $transition-base, color $transition-base,
+    border-color $transition-base, transform $transition-base;
+  text-decoration: none;
+
+  &:hover {
+    text-decoration: none;
+    transform: translateY(-1px);
+  }
+
+  svg {
+    width: 18px;
+    height: 18px;
+  }
+}
+
+.btn--primary {
+  background: $color-accent;
+  color: $color-white;
+
+  &:hover {
+    background: $color-accent-hover;
+  }
+}
+
+.btn--secondary {
+  background: transparent;
+  color: $color-accent;
+  border-color: $color-accent;
+
+  &:hover {
+    background: $color-accent;
+    color: $color-white;
+  }
+}
+
+.btn--ghost-dark {
+  background: $color-white;
+  color: $color-black;
+
+  &:hover {
+    background: $color-offwhite;
+  }
+}
+
+.link-arrow {
+  display: inline-flex;
+  align-items: center;
+  gap: $spacing-1;
+  font-weight: $font-weight-medium;
+  color: $color-accent;
+
+  &::after {
+    content: '›';
+    font-size: 1.2em;
+    line-height: 1;
+    transition: transform $transition-base;
+  }
+
+  &:hover::after {
+    transform: translateX(3px);
+  }
+}
+
+// ---------- Tags ----------
+.tag-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: $spacing-2;
+  list-style: none;
+}
+
+.tag {
+  display: inline-block;
+  padding: $spacing-1 $spacing-3;
+  border-radius: $radius-full;
+  background: $color-offwhite;
+  color: $color-gray-500;
+  font-size: $text-xs;
+  font-weight: $font-weight-medium;
+  letter-spacing: 0;
+}
+
+// ---------- Karten ----------
+.card {
+  background: $color-white;
+  border-radius: $radius-md;
+  padding: $spacing-6;
+  box-shadow: $shadow-card;
+  transition: transform 0.4s $ease-out-expo, box-shadow 0.4s $ease-out-expo;
+
+  &:hover {
+    transform: translateY(-4px);
+    box-shadow: $shadow-hover;
+  }
+}
+
+// ---------- Scroll-Reveal-Animationen ----------
+.reveal {
+  opacity: 0;
+  will-change: opacity, transform;
+  transition: opacity $transition-reveal, transform $transition-reveal;
+  transition-delay: var(--reveal-delay, 0ms);
+}
+
+.reveal--slide-up {
+  transform: translateY(36px);
+}
+
+.reveal--slide-left {
+  transform: translateX(48px);
+}
+
+.reveal--slide-right {
+  transform: translateX(-48px);
+}
+
+.reveal--scale {
+  transform: scale(0.94);
+}
+
+.reveal.is-visible {
+  opacity: 1;
+  transform: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html.is-ready {
+    scroll-behavior: auto;
+  }
+
+  .reveal {
+    opacity: 1 !important;
+    transform: none !important;
+    transition: none !important;
+  }
+}
+
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
 }

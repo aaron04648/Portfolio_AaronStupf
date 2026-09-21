@@ -1,0 +1,33 @@
+<header class="header" [class.header--scrolled]="scrolled()" [class.header--open]="menuOpen()">
+  <div class="header__inner container">
+    <a routerLink="/" class="header__logo" aria-label="Aaron Stupf – Startseite" (click)="closeMenu()">
+      <img src="aaron-stupf.png" alt="" width="28" height="28" />
+      <span>Aaron Stupf</span>
+    </a>
+
+    <nav id="hauptnavigation" class="header__nav" aria-label="Hauptnavigation">
+      @for (item of navItems; track item.path) {
+        <a
+          [routerLink]="item.path"
+          routerLinkActive="is-active"
+          [routerLinkActiveOptions]="{ exact: item.path === '/' }"
+          (click)="closeMenu()"
+          >{{ item.label }}</a
+        >
+      }
+      <a [routerLink]="[]" fragment="kontakt" class="header__cta" (click)="closeMenu()">Kontakt</a>
+    </nav>
+
+    <button
+      type="button"
+      class="header__burger"
+      aria-controls="hauptnavigation"
+      [attr.aria-expanded]="menuOpen()"
+      aria-label="Menü öffnen oder schliessen"
+      (click)="toggleMenu()"
+    >
+      <span></span>
+      <span></span>
+    </button>
+  </div>
+</header>

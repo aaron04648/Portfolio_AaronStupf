@@ -1,72 +1,37 @@
 import { Component } from '@angular/core';
-
-interface TimelineItem {
-  title: string; // Rolle oder Abschluss
-  institution: string; // Firma oder Schule
-  period: string;
-  desc: string;
-}
+import {
+  EDUCATION,
+  EXPERIENCE,
+  LANGUAGES,
+  PROFILE,
+  SKILL_GROUPS,
+  SKILL_LEVEL_LABEL,
+  SOFT_SKILLS,
+} from '../../core/portfolio.data';
+import { Icon, IconName } from '../../shared/icon/icon';
+import { RevealDirective } from '../../shared/reveal.directive';
 
 @Component({
   selector: 'app-resume',
-  standalone: true,
+  imports: [Icon, RevealDirective],
   templateUrl: './resume.component.html',
   styleUrl: './resume.component.scss',
 })
 export class ResumeComponent {
-  // Daten aus deinem Lebenslauf [cite: 41, 47]
-  education: TimelineItem[] = [
-    {
-      title: 'BSc in Artificial Intelligence & Machine Learning',
-      institution: 'HSLU - Hochschule Luzern',
-      period: 'Sept 2025 - Juli 2028',
-      desc: 'Schwerpunkte: Mathematik (Linear Algebra, Calculus), Machine Learning, Deep Learning und Data Science Projekte.',
-    },
-    {
-      title: 'Informatiker EFZ (Applikationsentwicklung)',
-      institution: 'Berufsfachschule Oberwallis Visp',
-      period: 'Aug 2020 - Juni 2024',
-      desc: 'Web-Entwicklung, Software-Engineering (Java, Spring Boot), Datenbankmanagement (SQL) und OOP.',
-    },
-  ];
+  protected readonly profile = PROFILE;
+  protected readonly experience = EXPERIENCE;
+  protected readonly education = EDUCATION;
+  protected readonly skillGroups = SKILL_GROUPS;
+  protected readonly levelLabel = SKILL_LEVEL_LABEL;
+  protected readonly softSkills = SOFT_SKILLS;
+  protected readonly languages = LANGUAGES;
+  protected readonly levels = [1, 2, 3];
+  protected readonly educationIcons: IconName[] = ['graduation', 'book', 'code'];
 
-  // Daten aus deinem Lebenslauf [cite: 63, 64, 67, 75, 81, 86]
-  experience: TimelineItem[] = [
-    {
-      title: 'Part-time Fullstack Developer',
-      institution: 'EVO (Full-Remote)',
-      period: 'Seit Nov 2025',
-      desc: 'Entwicklung eines Simulationstools für Photovoltaikanlagen mit Angular und Python.',
-    },
-    {
-      title: 'Full-time IT-Security',
-      institution: 'Lonza AG',
-      period: 'Nov 2024 - Sept 2025',
-      desc: 'Netzwerkinfrastruktur, Firewall-Konfiguration und Cyber-Security Management.',
-    },
-    {
-      title: 'Internship Web Developer',
-      institution: 'OHOOO',
-      period: 'Aug 2023 - Juni 2024',
-      desc: 'Co-Entwicklung einer "Mobile-First" News-App und eines Reservierungssystems (Angular, Ionic).',
-    },
-    {
-      title: 'Internship Web Developer',
-      institution: 'Megaphone Info',
-      period: 'Feb 2023 - Juni 2023',
-      desc: 'Entwicklung eines CMS mit Angular und NestJS. Cross-Platform Publishing.',
-    },
-    {
-      title: 'Internship Web Developer',
-      institution: 'Pomona Media',
-      period: 'Aug 2022 - Dez 2022',
-      desc: 'Entwicklung einer Digital Signage Applikation mit Vue.js.',
-    },
-    {
-      title: 'Software Developer',
-      institution: "EMV's",
-      period: 'Aug 2020 - Aug 2022',
-      desc: 'Ausbildung in Full-Stack Web Development (HTML, CSS, JS, PHP, C#).',
-    },
+  protected readonly facts = [
+    { label: 'Studium', value: 'BSc AI & Machine Learning, HSLU' },
+    { label: 'Abschluss', value: 'Informatiker EFZ' },
+    { label: 'Aktuell', value: 'Full-Stack Developer bei EVO' },
+    { label: 'Wohnort', value: PROFILE.location },
   ];
 }

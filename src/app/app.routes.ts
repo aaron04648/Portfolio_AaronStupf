@@ -8,17 +8,22 @@ export const routes: Routes = [
   {
     path: '',
     component: HomeComponent,
+    title: 'Aaron Stupf – Portfolio',
   },
   {
     path: 'projects',
     component: ProjectsComponent,
+    title: 'Projekte – Aaron Stupf',
   },
   {
     path: 'resume',
     component: ResumeComponent,
+    title: 'Lebenslauf – Aaron Stupf',
   },
   {
     path: 'aboutme',
     component: AboutMeComponent,
+    title: 'Über mich – Aaron Stupf',
   },
+  { path: '**', redirectTo: '' },
 ];
