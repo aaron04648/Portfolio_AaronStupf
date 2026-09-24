@@ -426,6 +426,8 @@ export const SKILL_GROUPS: SkillGroup[] = [
       { name: 'GitHub', level: 3 },
       { name: 'GitLab', level: 2 },
       { name: 'Docker', level: 2 },
+      { name: 'Kubernetes', level: 1 },
+      { name: 'ArgoCD', level: 1 },
     ],
   },
 ];
