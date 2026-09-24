@@ -9,7 +9,7 @@ import { IconName } from '../shared/icon/icon';
 export const PROFILE = {
   name: 'Aaron Stupf',
   role: 'Bachelor Student in Artificial Intelligence & Machine Learning',
-  location: 'Rothenburg, Luzern',
+  location: 'Luzern',
   portrait: 'aaron-stupf.png',
   github: 'https://github.com/aaron04648',
   linkedin: 'https://www.linkedin.com/in/aaron-stupf/',
@@ -490,7 +490,7 @@ export const STORY: StoryChapter[] = [
   {
     year: '2026',
     title: 'Heute',
-    place: 'Rothenburg, Luzern',
+    place: 'Luzern',
     text: 'Ich verbinde, was ich gelernt habe: Für den Luzern Geo Chat habe ich eine RAG-Lösung auf Azure gebaut, für die Gemeinde Bitsch automatisiere ich Verwaltungsprozesse mit KI. Solide Software-Architektur trifft moderne KI – genau dort will ich weiterwachsen.',
     tags: ['AI Engineering', 'Automatisierung'],
   },
